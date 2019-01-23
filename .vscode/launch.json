@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MagicSquareDriver",
+            "request": "launch",
+            "mainClass": "MagicSquareDriver",
+            "projectName": "magicsquare_931f6ea0"
+        }
+    ]
+}
