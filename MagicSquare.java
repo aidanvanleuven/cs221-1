@@ -1,53 +1,99 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MagicSquare {
 
     public static String checkMatrix(File matrixFile){
-        Scanner lineScanner;
-        Scanner columnScanner;
-        int size;
-        String output = "The matrix: \n\n";
-        boolean valid;
+        Scanner lineScanner; //scans the file
+        Scanner columnScanner; //scans each line
+        int size; //size of the array neccessary
+        boolean valid; //bool for validity
+        int magicNumber;
+        int checkValue;
 
+        //try to load the file; should be unneccessary because of previous checks but the compiler likes it
         try {
             lineScanner = new Scanner(matrixFile);
         } catch (FileNotFoundException e) {
-
             return "Error reading " + matrixFile + ".";
         }
 
+        //use the first line to establish matrix size
         size = Integer.parseInt(lineScanner.nextLine());
+        
+        //make a new 2d array for the numbers
+        int[] numberList = new int[size*size];
+
+        //create 2d array of proper size
         int[][] grid = new int[size][size];
 
+        //loop through rows and integers and add them to an arraylist and a 2d array
         for (int i=0;lineScanner.hasNextLine();i++){
 
             columnScanner = new Scanner(lineScanner.nextLine());
-
             for (int j=0;columnScanner.hasNextInt();j++){
-
-                grid[i][j] = columnScanner.nextInt();
+                int next = columnScanner.nextInt();
+                numberList[i*size+j] = next;
+                grid[i][j] = next;
             }
-
             columnScanner.close();
         }
+        lineScanner.close();
 
-        for (int i=0;i<grid.length;i++){
+        //sort the array
+        Arrays.sort(numberList);
+
+        //get the magic number
+        magicNumber = (size*(size+1))/2;
+
+
+        valid = true;
+
+        //check the arrays numbers to verify the magic square
+        for (int i=0;i<numberList.length;i++){
+            System.out.println(i+1 + " " + numberList[i]);
+            if (i+1 != numberList[i]){
+                valid = false;
+                return outputValues(grid, false);
+            }
+        }
+
+        if (valid == true){
+            return outputValues(grid, true);
+        }
+
+        // checkValue = 0;
+        // //check the sums to verify the magic square
+        // for (int i=0;i<grid.length;i++){
+        //     for (int j=0;j<grid.length;j++){
+
+        //     }
+        // }
+
+        return "There was an error checking the square.";
+    }
+
+    private static String outputValues(int[][] matrix, boolean isValid){
+        String output = "The matrix: \n\n";
+
+        //format the output
+        for (int i=0;i<matrix.length;i++){
             output += "\t";
-            for (int j=0;j<grid.length;j++){
-                output += grid[i][j] + " ";
+            for (int j=0;j<matrix.length;j++){
+                output += matrix[i][j] + " ";
             }
             output += "\n";
         }
+        
 
-        // if (valid){
-        //     output += "\nis a magic square";
-        // } else {
-        //     output += "\nis not a magic square";
-        // }
+        if (isValid){
+            output += "\nis a magic square.";
+        } else {
+            output += "\nis not a magic square.";
+        }
 
-        lineScanner.close();
         return output;
     }
 }
