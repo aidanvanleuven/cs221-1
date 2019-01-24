@@ -97,6 +97,29 @@ public class MagicSquare {
         //return "There was an error checking the square.";
     }
 
+    public static String createMagicSquare(String fileName, int size){
+        int[][] grid = new int[size][size];
+        int row = size - 1;
+        int col = size/2;
+        int oldRow;
+        int oldCol;
+
+        for (int i=1;i<size*size;i++){
+            grid[row][col] = i;
+            oldRow = row;
+            oldCol = col;
+            if (row == size){
+                row = 0;
+            }
+            if 
+            (col == size){
+                col = 0;
+            }
+            
+        }
+        return "";
+    }
+
     private static String outputValues(int[][] matrix, boolean isValid){
         String output = "The matrix: \n\n";
 

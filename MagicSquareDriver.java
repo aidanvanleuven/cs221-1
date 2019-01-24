@@ -21,10 +21,13 @@ public class MagicSquareDriver{
         if (args[0].equals("-check") && args.length == 2 && new File(args[1]).isFile()){
             matrixFile = new File(args[1]);
             System.out.println(MagicSquare.checkMatrix(matrixFile));
+            return;
 
         } else if (args[0].equals("-create") && args.length == 3 && !new File(args[1]).isFile()){
 
             length = Integer.parseInt(args[2]);
+            System.out.println(MagicSquare.createMagicSquare(args[1], length));
+            return;
 
         } else {
             System.out.println("Please check your arguments, for a list of valid arguments enter \"MagicSquareDriver -arguments\"");
